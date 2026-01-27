@@ -22,10 +22,10 @@ const redisClient = new Redis(process.env.REDIS_URL)
 app.use(express.json());
 app.use(helmet());
 app.use(cors())
-app.use((req,res,next) => {
-    logger.info(`${req.method} ${req.url} ip: ${req.ip}`);
-    next();
-})
+// app.use((req,res,next) => {
+//     logger.info(`${req.method} ${req.url} ip: ${req.ip}`);
+//     next();
+// })
 
 //DDoS protection and rate limiting middleware
 const rateLimiter = new RateLimiterRedis({
@@ -65,7 +65,6 @@ app.use('/api/auth/register',sensitiveEndpointsLimiter)
 
 
 //routes
-
 app.use('/api/auth', authRoutes);
 
 //error handler
