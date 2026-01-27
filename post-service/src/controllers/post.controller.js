@@ -7,6 +7,8 @@ import validateCreatePost from "../utils/validation.js";
 // const redisClient = new Redis(ENV.REDIS_URL);
 
 async function invalidateCache(req, input) {
+  const cachedKey = `post:${input}`
+  await req.redisClient.del(cachedKey);
   const keys = await req.redisClient.keys("posts:*");
   if(keys.length > 0){
     await req.redisClient.del(keys);
@@ -114,7 +116,24 @@ export const getAllPostByIdController = async (req, res) => {
 
 export const deletePostController = async (req, res) => {
   try {
-    
+    const post = await Post.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user.userId
+    })
+
+    if(!post){
+      return res.status(404).json({
+        success: false,
+        message: 'post not found'
+      });
+    }
+
+    await invalidateCache(req, req.params.id);
+    res.json({
+      message: 'post deleted successfully',
+      success: true
+    })
+
   } catch (error) {
     logger.error("Error deleting post", error);
     return res.status(500).json({

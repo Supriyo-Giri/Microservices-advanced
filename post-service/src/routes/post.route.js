@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPostController, getAllPostsController, getAllPostByIdController } from '../controllers/post.controller.js'
+import { createPostController, getAllPostsController, getAllPostByIdController, deletePostController } from '../controllers/post.controller.js'
 import { authenticateRequest } from '../middlewares/auth.js';
 
 const router = express.Router();
@@ -10,5 +10,6 @@ router.use(authenticateRequest)
 router.post('/create',createPostController);
 router.get('/',getAllPostsController);
 router.get('/:id',getAllPostByIdController);
+router.delete('/:id',deletePostController)
 
 export default router;
