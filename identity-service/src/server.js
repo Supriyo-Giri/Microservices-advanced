@@ -15,7 +15,7 @@ import errorHandler from './middlewares/errorHandler.js'
 const app = express();
 
 const PORT = ENV.PORT;
-const redisClient = new Redis(process.env.REDIS_URL)
+const redisClient = new Redis(ENV.REDIS_URL)
 
 
 //middlewares
