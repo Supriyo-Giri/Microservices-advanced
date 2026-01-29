@@ -14,6 +14,7 @@ const ENV = {
     API_GATEWAY_URL: process.env.APi_GATEWAY_URL || noENV('APi_GATEWAY_URL'),
     JWT_SECRET: process.env.JWT_SECRET || noENV('JWT_SECRET'),
     POST_SERVICE_URL: process.env.POST_SERVICE_URL || noENV('POST_SERVICE_URL'),
+    MEDIA_SERVICE_URL: process.env.MEDIA_SERVICE_URL || noENV('MEDIA_SERVICE_URL')
 }
 
 export default ENV
