@@ -46,7 +46,7 @@ services:
   
   redis:
     image: redis:alpine
-    posts:
+    ports:
       - "6379:6379"
     
   rabbitmq:
