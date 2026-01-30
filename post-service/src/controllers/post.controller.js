@@ -1,4 +1,4 @@
-import Post from "../models/post.js";
+import Post from "../models/Post.js";
 import logger from "../utils/logger.js";
 import validateCreatePost from "../utils/validation.js";
 // import Redis from 'ioredis';
