@@ -10,6 +10,7 @@ import errorHandler from './middlewares/errroHandler.js'
 import logger from './utils/logger.js'
 import { connectDb } from './utils/db.js'
 import ENV from './utils/env.js'
+import connectRabbitmq from './utils/rabbitmq.js'
 
 const app = express();
 const PORT = ENV.PORT;
@@ -49,10 +50,21 @@ app.use('/api/posts',(req,res,next)=>{
 },postRoutes)
 app.use(errorHandler);
 
-app.listen(PORT,()=>{
-    connectDb();
-    logger.info(`Post-service started on : ${ENV.POST_SERVICE_URL}`);
-})
+
+async function startServer() {
+    try {
+        await connectRabbitmq();
+        connectDb();
+        app.listen(PORT,()=>{
+            logger.info(`Post-service started on : ${ENV.POST_SERVICE_URL}`);
+        })
+    } catch (error) {
+        logger.error('Failed to connect to server, ',error);
+        process.exit(1);
+    }
+}
+
+startServer();
 
 //unhandled promise rejection
 process.on('unhandledRejection',(reason, promise)=>{

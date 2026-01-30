@@ -11,7 +11,8 @@ const ENV = {
     REDIS_URL: process.env.REDIS_URL || noENV('REDIS_URL'),
     NODE_ENV: process.env.NODE_ENV || noENV('NODE_ENV'),
     MONGO_URI: process.env.MONGO_URI || noENV('MONGO_URI'),
-    POST_SERVICE_URL: process.env.POST_SERVICE_URL || noENV('POST_SERVICE_URL')
+    POST_SERVICE_URL: process.env.POST_SERVICE_URL || noENV('POST_SERVICE_URL'),
+    RABBITMQ_URL: process.env.RABBITMQ_URL || noENV('RABBITMQ_URL'),
 }
 
 export default ENV
